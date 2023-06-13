@@ -27,5 +27,14 @@ public final class Moves {
 	public static final byte R2 = R + 1;
 	public static final byte R_PRIME = R + 2;
 
+	public static final byte[] MOVES = {
+			U, U2, U_PRIME,
+			D, D2, D_PRIME,
+			F, F2, F_PRIME,
+			B, B2, B_PRIME,
+			L, L2, L_PRIME,
+			R, R2, R_PRIME
+	};
+
 
 }
