@@ -12,7 +12,10 @@ public final class CornerCubeletSolver {
 
 	public SolutionSet generateSolution(final int solX, final int solY, final int solZ) {
 		final SolutionSet solutionSet = new SolutionSet();
-		explore(solX, solY, solZ, cubelet, new int[20], 0, solutionSet);
+		System.out.println(
+				Arrays.toString(Moves.effectiveMovesCornerCubelet(cubelet.getPosX(), cubelet.getPosY(), cubelet.getPosZ()))
+		);
+		explore(solX, solY, solZ, cubelet, new byte[20], 0, solutionSet);
 		return solutionSet;
 	}
 
@@ -21,19 +24,25 @@ public final class CornerCubeletSolver {
 			final int solY,
 			final int solZ,
 			final CornerCubelet cubelet,
-			int[] currentPath,
-			int currentIndex,
-			SolutionSet solutionSet
+			final byte[] currentPath,
+			final int currentIndex,
+			final SolutionSet solutionSet
 	) {
-
-		for (byte move : Moves.MOVES) {
+		final byte lastMove;
+		if (currentIndex == 0) lastMove = 0;
+		else lastMove = currentPath[currentIndex - 1];
+		for (byte move : Moves.effectiveMovesCornerCubelet(cubelet.getPosX(), cubelet.getPosY(), cubelet.getPosZ())) {
+			if (move == (byte) 0) continue;
+			if (lastMove >> 2 == move >> 2) continue;
 			final CornerCubelet solved = new CornerCubelet(cubelet);
-			currentPath[currentIndex++] = move;
+			if (currentIndex == 20) return;
+			currentPath[currentIndex] = move;
+			solved.applyMove(move);
 			if (solved.getPosX() == solX && solved.getPosY() == solY && solved.getPosZ() == solZ) {
-				solutionSet.addSolution(currentPath);
+				solutionSet.addSolution(currentPath, currentIndex + 1);
 				return;
 			}
-			explore(solX, solY, solZ, solved, Arrays.copyOf(currentPath, currentPath.length), currentIndex, solutionSet);
+			explore(solX, solY, solZ, solved, Arrays.copyOf(currentPath, currentPath.length), currentIndex + 1, solutionSet);
 		}
 	}
 

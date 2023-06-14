@@ -19,6 +19,7 @@ public final class CornerCubelet {
 	}
 
 	public void applyMove(final byte move) {
+		if (move == 0) return;
 		switch (move % 4) {
 			case 0: {
 				applyBaseMove(move);
@@ -40,7 +41,7 @@ public final class CornerCubelet {
 
 	private void applyBaseMove(final byte move) {
 		switch (move >> 2) {
-			case 0: {
+			case 1: {
 				// U
 				if (posZ == 0) {
 					if (posX == 0) {
@@ -53,7 +54,7 @@ public final class CornerCubelet {
 				}
 				break;
 			}
-			case 1: {
+			case 2: {
 				// D
 				if (posZ == 2) {
 					if (posX == 0) {
@@ -66,7 +67,7 @@ public final class CornerCubelet {
 				}
 				break;
 			}
-			case 2: {
+			case 3: {
 				// F
 				if (posY == 2) {
 					if (posZ == 0) {
@@ -79,7 +80,7 @@ public final class CornerCubelet {
 				}
 				break;
 			}
-			case 3: {
+			case 4: {
 				// B
 				if (posY == 0) {
 					if (posZ == 0) {
@@ -92,7 +93,7 @@ public final class CornerCubelet {
 				}
 				break;
 			}
-			case 4: {
+			case 5: {
 				// L
 				if (posX == 0) {
 					if (posZ == 0) {
@@ -105,7 +106,7 @@ public final class CornerCubelet {
 				}
 				break;
 			}
-			case 5: {
+			case 6: {
 				// R
 				if (posX == 2) {
 					if (posZ == 0) {

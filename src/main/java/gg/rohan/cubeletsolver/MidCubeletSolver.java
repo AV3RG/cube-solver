@@ -12,7 +12,7 @@ public final class MidCubeletSolver {
 
 	public SolutionSet generateSolution(final int solX, final int solY, final int solZ) {
 		final SolutionSet solutionSet = new SolutionSet();
-		explore(solX, solY, solZ, cubelet, new int[20], 0, solutionSet);
+		explore(solX, solY, solZ, cubelet, new byte[20], 0, solutionSet);
 		return solutionSet;
 	}
 
@@ -21,7 +21,7 @@ public final class MidCubeletSolver {
 			final int solY,
 			final int solZ,
 			final MidCubelet cubelet,
-			int[] currentPath,
+			byte[] currentPath,
 			int currentIndex,
 			SolutionSet solutionSet
 	) {
@@ -30,7 +30,7 @@ public final class MidCubeletSolver {
 			final MidCubelet solved = new MidCubelet(cubelet);
 			currentPath[currentIndex++] = move;
 			if (solved.getPosX() == solX && solved.getPosY() == solY && solved.getPosZ() == solZ) {
-				solutionSet.addSolution(currentPath);
+				solutionSet.addSolution(currentPath, currentIndex);
 				return;
 			}
 			explore(solX, solY, solZ, solved, Arrays.copyOf(currentPath, currentPath.length), currentIndex, solutionSet);
